@@ -1,31 +1,61 @@
-const axios = require('axios');
+const { GoogleGenerativeAI } = require("@google/generative-ai");
+require("dotenv").config();
 
-const apiKey = process.env.OPENROUTER_API_KEY;
-const generateInsights = async (scores, extras) => {
-  const prompt = `
-  Based on the following profile data:
-  GitHub Score: ${scores.githubScore}, Commits: ${extras.commits}, PRs: ${extras.prs}, Active Repos: ${extras.repos}
-  LinkedIn Score: ${scores.linkedinScore}, Followers: ${extras.followers}, Endorsements: ${extras.endorsements}
-  Coding Score: ${scores.codingScore}, LeetCode Solved: ${extras.lcSolved}, Codeforces Rating: ${extras.cfRating}
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
-  Provide:
-  1. Top strengths
-  2. Main weaknesses
-  3. Personalized recommendations for improvement in GitHub, LinkedIn, and Coding skills.
+// Helper to build structured prompt
+function buildPrompt(profile) {
+  return `
+## Developer Profile
 
-  Format response as JSON with keys: strengths, weaknesses, recommendations.`;
+### GitHub Stats:
+- Public Repos: ${profile.public_repos}
+- Followers: ${profile.followers}
+- Contributions (past year): ${profile.contributions}
 
-  const res = await axios.post('https://openrouter.ai/api/v1/chat/completions', {
-    model: 'openai/gpt-3.5-turbo',
-    messages: [{ role: 'user', content: prompt }],
-  }, {
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      'Content-Type': 'application/json'
+### LeetCode Stats:
+- Total Solved: ${profile.totalSolved}
+  - Easy: ${profile.easySolved}
+  - Medium: ${profile.mediumSolved}
+  - Hard: ${profile.hardSolved}
+- Contest Rating: ${profile.contestRating}
+
+### LinkedIn Stats:
+- Connections: ${profile.linkedinConnections || "N/A"}
+- Endorsements: ${profile.linkedinEndorsements || "N/A"}
+
+---
+
+## Instructions:
+You are a career coach analyzing a developer profile. Based on the stats above, return:
+
+1. **Top 3 Strengths** (with reasoning)
+2. **Top 3 Areas for Improvement**
+3. **Actionable Personalized Recommendations**
+
+Respond in **markdown format**.
+`;
+}
+
+async function generateInsights(profileData) {
+  try {
+    if (!profileData || typeof profileData !== 'object') {
+      throw new Error("Invalid profile data supplied.");
     }
-  });
 
-  return JSON.parse(res.data.choices[0].message.content);
-};
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-module.exports = { generateInsights };
+    const prompt = buildPrompt(profileData);
+
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const insights = response.text();
+
+    return insights;
+  } catch (error) {
+    console.error("❌ Gemini insight generation error:", error.message);
+    throw new Error("Failed to generate insights");
+  }
+}
+
+module.exports =  generateInsights ;
