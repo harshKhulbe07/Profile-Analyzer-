@@ -1,0 +1,53 @@
+/* src/components/CodeForcesCard.css */
+
+.codeforces-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);  
+    border-radius: 10px;
+    padding: 1.5rem;
+    text-align: center;
+    width: 90%;
+    height: 90%;
+  }
+  
+  .codeforces-card h3 {
+    color: #0366d6; /* CodeForces blue */
+    font-size: 1.2rem;
+  }
+  
+  .codeforces-card .stat-value {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+  }
+  
+  .codeforces-card .stat-label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+  
+  .codeforces-card .username {
+    color: var(--primary-blue);
+    font-weight: 500;
+    margin: 1rem 0;
+  }
+  
+  .codeforces-card .profile-link {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: rgba(3, 102, 214, 0.1);
+    color: #0366d6;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+  }
+  
+  .codeforces-card .profile-link:hover {
+    background: rgba(3, 102, 214, 0.2);
+  }
+  .card-content{
+    font-size: 18px;
+  }

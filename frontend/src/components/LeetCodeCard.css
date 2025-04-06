@@ -1,0 +1,61 @@
+/* src/components/LeetCodeCard.css */
+
+.leetcode-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    padding: 1rem;
+    text-align: center;
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+    max-width: 300px;
+    width: 100%;
+    height: 80%;
+  }
+.leetcode-card:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 168, 255, 0.2);
+}
+  
+  .leetcode-card h3 {
+    color: #ffa116; /* LeetCode orange */
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .leetcode-card .stat-value {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+  }
+  
+  .leetcode-card .stat-label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+  
+  .leetcode-card .username {
+    color: var(--primary-blue);
+    font-weight: 500;
+    margin: 1rem 0;
+  }
+  
+  .leetcode-card .profile-link {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: rgba(255, 161, 22, 0.1);
+    color: #ffa116;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+  }
+  
+  .leetcode-card .profile-link:hover {
+    background: rgba(255, 161, 22, 0.2);
+  }
+  .platform-stat{
+    font-size: 18px;
+  }

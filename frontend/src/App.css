@@ -1,0 +1,36 @@
+/* Main Layout */
+.app-wrapper {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+/* Scroll Container */
+.scroll-container {
+  height: 100vh;
+  width: 100%;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+
+/* Sections */
+.page-section {
+  height: 100vh;
+  width: 100%;
+  scroll-snap-align: start;
+  position: relative;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Active Section Highlight */
+.page-section:target {
+  animation: highlight 1s ease;
+}
+
+@keyframes highlight {
+  0% { background: rgba(0, 168, 255, 0.1); }
+  100% { background: transparent; }
+}

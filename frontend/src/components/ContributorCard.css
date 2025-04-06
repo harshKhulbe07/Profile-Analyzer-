@@ -1,0 +1,51 @@
+.contributor-card {
+    background: rgba(10, 20, 40, 0.7);
+    border: 1px solid rgba(0, 168, 255, 0.3);
+    border-radius: 15px;
+    padding: 1.5rem;
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+    width: 100%;
+    max-width: 350px;
+  }
+  
+  .contributor-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 168, 255, 0.2);
+  }
+  
+  .contributor-header h3 {
+    color: var(--primary-blue);
+    margin-bottom: 0.5rem;
+    font-size: 1.4rem;
+  }
+  
+  .role {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .contributor-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .contributor-links a {
+    color: var(--text-primary);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+  }
+  
+  .contributor-links a:hover {
+    color: var(--accent-blue);
+    text-shadow: var(--soft-glow);
+  }
+  
+  .icon {
+    font-size: 1.2rem;
+  }
