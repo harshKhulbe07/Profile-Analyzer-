@@ -11,7 +11,6 @@ function buildPrompt(profile) {
 ### GitHub Stats:
 - Public Repos: ${profile.public_repos}
 - Followers: ${profile.followers}
-- Contributions (past year): ${profile.contributions}
 
 ### LeetCode Stats:
 - Total Solved: ${profile.totalSolved}
@@ -19,6 +18,9 @@ function buildPrompt(profile) {
   - Medium: ${profile.mediumSolved}
   - Hard: ${profile.hardSolved}
 - Contest Rating: ${profile.contestRating}
+
+### Codeforces Stats:
+- Rating: ${profile.codeforcesRating || "N/A"}
 
 ### LinkedIn Stats:
 - Connections: ${profile.linkedinConnections || "N/A"}
@@ -46,6 +48,8 @@ async function generateInsights(profileData) {
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
     const prompt = buildPrompt(profileData);
+    // DEBUG
+    console.log("🧠 Final Prompt to Gemini:\n", prompt);
 
     const result = await model.generateContent(prompt);
     const response = await result.response;
