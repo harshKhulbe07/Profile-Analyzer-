@@ -1,7 +1,7 @@
 import fetchLeetcodeScore from "../utils/fetchLeetcodeScore.js";
 import fetchCodeforcesScore from "../utils/fetchCodeforcesScore.js";
 import fetchGithubScore from "../utils/fetchGithubScore.js";
-import fetchLinkedInScore from "../utils/fetchLinkedInScore.js";
+import fetchLinkedInScore from "../utils/fetchLinkedinScore.js";
 import generateInsights from "../utils/generateInsights.js";
 
 export const analyzeDeveloperProfile = async (req, res) => {

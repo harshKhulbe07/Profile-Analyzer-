@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Developer Profile Analyzer</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+  <header>
+    <nav>
+      <h1>DevAnalyzer</h1>
+      <ul>
+        <li><a href="#intro">Home</a></li>
+        <li><a href="#form">Form</a></li>
+        <li><a href="#results">Results</a></li>
+        <li><a href="#contributors">Contributors</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="intro-section" id="intro">
+    <h2>Welcome to DevAnalyzer</h2>
+    <p>
+      Enter your GitHub, LeetCode, Codeforces, and LinkedIn info to get personalized insights and scores about your developer profile!
+    </p>
+  </section>
+
+  <section class="form-section" id="form">
+    <h2>Analyze Your Developer Profile</h2>
+    <form id="user-form">
+      <label for="githubUsername">GitHub Username:</label>
+      <input type="text" id="githubUsername" name="githubUsername" required />
+
+      <label for="leetcodeUsername">LeetCode Username:</label>
+      <input type="text" id="leetcodeUsername" name="leetcodeUsername" required />
+
+      <label for="codeforcesUsername">Codeforces Username:</label>
+      <input type="text" id="codeforcesUsername" name="codeforcesUsername" required />
+
+      <label for="linkedinFollowers">LinkedIn Followers:</label>
+      <input type="number" id="linkedinFollowers" name="linkedinFollowers" required />
+
+      <label for="linkedinEndorsements">LinkedIn Endorsements:</label>
+      <input type="number" id="linkedinEndorsements" name="linkedinEndorsements" required />
+
+      <button type="submit">Analyze</button>
+    </form>
+  </section>
+
+  <!-- RESULTS SECTION: Hidden by default -->
+  <section id="results" class="results-section" style="display: none;">
+    <h2>Results</h2>
+    <div class="score-cards">
+      <div class="card" id="github-card">
+        <span class="card-icon">🐱</span>
+        <h3>GitHub</h3>
+        <p class="score" id="github-score">--</p>
+        <div class="progress-container">
+          <div class="progress-bar" id="github-progress"></div>
+        </div>
+      </div>
+      <div class="card" id="leetcode-card">
+        <span class="card-icon">💡</span>
+        <h3>LeetCode</h3>
+        <p class="score" id="leetcode-score">--</p>
+        <div class="progress-container">
+          <div class="progress-bar" id="leetcode-progress"></div>
+        </div>
+      </div>
+      <div class="card" id="codeforces-card">
+        <span class="card-icon">⚔️</span>
+        <h3>Codeforces</h3>
+        <p class="score" id="codeforces-score">--</p>
+        <div class="progress-container">
+          <div class="progress-bar" id="codeforces-progress"></div>
+        </div>
+      </div>
+      <div class="card" id="linkedin-card">
+        <span class="card-icon">🔗</span>
+        <h3>LinkedIn</h3>
+        <p class="score" id="linkedin-score">--</p>
+        <div class="progress-container">
+          <div class="progress-bar" id="linkedin-progress"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="insights-box" id="insights">
+      <!-- AI-generated insights will go here -->
+    </div>
+  </section>
+
+  <section id="contributors" class="contributors-section">
+    <h2>Contributors</h2>
+    <div class="contributor-list">
+      <div class="contributor-card">
+        <span class="avatar">H</span>
+        <p>Harsh</p>
+      </div>
+      <div class="contributor-card">
+        <span class="avatar">U</span>
+        <p>Uday</p>
+      </div>
+      <div class="contributor-card">
+        <span class="avatar">R</span>
+        <p>Ridhi</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 DevAnalyzer. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
