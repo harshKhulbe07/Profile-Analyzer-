@@ -3,52 +3,71 @@ require("dotenv").config();
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
-// Helper to build structured prompt
+// 🧠 Build structured prompt
 function buildPrompt(profile) {
   return `
+You are an expert career coach analyzing a developer profile.
+
 ## Developer Profile
 
 ### GitHub Stats:
-- Public Repos: ${profile.public_repos}
-- Followers: ${profile.followers}
+- Public Repos: ${profile.public_repos || 0}
+- Followers: ${profile.githubFollowers || profile.followers || 0}
 
 ### LeetCode Stats:
-- Total Solved: ${profile.totalSolved}
-  - Easy: ${profile.easySolved}
-  - Medium: ${profile.mediumSolved}
-  - Hard: ${profile.hardSolved}
-- Contest Rating: ${profile.contestRating}
+- Total Solved: ${profile.totalSolved || 0}
+  - Easy: ${profile.easySolved || 0}
+  - Medium: ${profile.mediumSolved || 0}
+  - Hard: ${profile.hardSolved || 0}
+- Contest Rating: ${profile.contestRating || 0}
 
 ### Codeforces Stats:
-- Rating: ${profile.codeforcesRating || "N/A"}
+- Rating: ${profile.codeforcesRating || 0}
 
 ### LinkedIn Stats:
-- Connections: ${profile.linkedinConnections || "N/A"}
-- Endorsements: ${profile.linkedinEndorsements || "N/A"}
+- Followers: ${profile.linkedinConnections || 0}
+- Endorsements: ${profile.linkedinEndorsements || 0}
 
 ---
 
 ## Instructions:
-You are a career coach analyzing a developer profile. Based on the stats above, return:
+Analyze the profile and provide:
 
-1. **Top 3 Strengths** (with reasoning)
-2. **Top 3 Areas for Improvement**
-3. **Actionable Personalized Recommendations**
+## Strengths
+- (Top 3 strengths with reasoning)
 
-Respond in **markdown format**.
+## Areas for Improvement
+- (Top 3 weaknesses with reasoning)
+
+## Recommendations
+- (Clear, actionable steps to improve)
+
+Keep the response:
+- Concise
+- Practical
+- Specific (avoid generic advice)
+- Easy to read
 `;
 }
 
+// 🤖 Generate AI insights
 async function generateInsights(profileData) {
   try {
-    if (!profileData || typeof profileData !== 'object') {
+    if (!profileData || typeof profileData !== "object") {
       throw new Error("Invalid profile data supplied.");
     }
 
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const model = genAI.getGenerativeModel({
+      model: "gemini-2.5-pro",
+      generationConfig: {
+        maxOutputTokens: 400,
+        temperature: 0.7,
+      },
+    });
 
     const prompt = buildPrompt(profileData);
-    // DEBUG
+
+    // DEBUG (optional)
     console.log("🧠 Final Prompt to Gemini:\n", prompt);
 
     const result = await model.generateContent(prompt);
@@ -56,10 +75,22 @@ async function generateInsights(profileData) {
     const insights = response.text();
 
     return insights;
+
   } catch (error) {
     console.error("❌ Gemini insight generation error:", error.message);
-    throw new Error("Failed to generate insights");
+
+    // ✅ Safe fallback (prevents app crash)
+    return `
+⚠️ Unable to generate AI insights at the moment.
+
+Possible reasons:
+- API quota exceeded
+- Network issue
+- Temporary service issue
+
+Please try again later.
+`;
   }
 }
 
-module.exports =  generateInsights ;
+module.exports = generateInsights;
